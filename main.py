@@ -1,11 +1,10 @@
 import pandas as pd
 from twilio.rest import Client
 
-# Para enviar os nomes dos vendedores que bateram a meta de vendas por SMS, descomente a linha a seguir e insira sua conta SID do twilio.com/console.
-#account_sid = "###########"
-# Descomente as linha abaixo e insira seu Token do twilio.com/console:
-#auth_token  = "#####"
-#client = Client(account_sid, auth_token)
+# Informações de login Twilio (comentar o bloco abaixo caso não queira enviar SMS):
+account_sid = input('Twilio account SID:')
+auth_token = input('Twilio Token:')
+client = Client(account_sid, auth_token)
 
 # Abrir as seis planilhas de vendas:
 lista_meses = ['janeiro', 'fevereiro', 'março', 'abril', 'maio', 'junho']
@@ -26,9 +25,9 @@ for mes in lista_meses:
             vendas = bonus_df.iloc[i,1]
             print(f'O(a) vendedor(a) {vendedor} bateu a meta com R${vendas},00 em vendas em {mes}')
 
-        # Para enviar o SMS, descomente as linhas abaixo e preencha o seu número Twilio (from) e o número recipiente (to)
-#        message = client.messages.create(
-#            to="+5511967679570",
-#            from_="++17627603382",
-#            body=f'O(a) vendedor(a) {vendedor} bateu a meta com R${vendas},00 em vendas no mês de {mes}.')
-#        print(message.sid)
+        # Enviar SMS:
+        message = client.messages.create(
+            to=input('Send SMS to:'),
+            from_=input('Your Twilio phone number:'),
+            body=f'O(a) vendedor(a) {vendedor} bateu a meta com R${vendas},00 em vendas no mês de {mes}.')
+        print(message.sid)
