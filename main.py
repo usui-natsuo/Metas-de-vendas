@@ -5,7 +5,8 @@ from twilio.rest import Client
 account_sid = input('Twilio account SID:')
 auth_token = input('Twilio Token:')
 client = Client(account_sid, auth_token)
-
+sender = input('Send SMS from (Twilio Phone number):')
+receiver = input('Send SMS to:')
 # Abrir as seis planilhas de vendas:
 lista_meses = ['janeiro', 'fevereiro', 'março', 'abril', 'maio', 'junho']
 
@@ -27,7 +28,7 @@ for mes in lista_meses:
 
         # Enviar SMS:
         message = client.messages.create(
-            to=input('Send SMS to:'),
-            from_=input('Your Twilio phone number:'),
+            to=receiver,
+            from_=sender,
             body=f'O(a) vendedor(a) {vendedor} bateu a meta com R${vendas},00 em vendas no mês de {mes}.')
         print(message.sid)
