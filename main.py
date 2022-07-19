@@ -24,11 +24,11 @@ for mes in lista_meses:
         for i in bonus_df.index:
             vendedor = bonus_df.iloc[i,0]
             vendas = bonus_df.iloc[i,1]
-            print(f'O(a) vendedor(a) {vendedor} bateu a meta com R${vendas},00 em vendas em {mes}')
+            print(f'O(a) vendedor(a) {vendedor} bateu a meta com R${vendas:,.2f} em vendas em {mes}')
 
         # Enviar SMS:
         message = client.messages.create(
             to=receiver,
             from_=sender,
-            body=f'O(a) vendedor(a) {vendedor} bateu a meta com R${vendas},00 em vendas no mês de {mes}.')
+            body=f'O(a) vendedor(a) {vendedor} bateu a meta com R${vendas:,.2f} em vendas no mês de {mes}.')
         print(message.sid)
